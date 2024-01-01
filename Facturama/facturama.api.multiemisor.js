@@ -58,8 +58,7 @@ const facturama = () => {
 		Cfdi: {
 			Get: (id) => retrieve('api-lite/cfdis', id),
 			List: (param) => listWithParam('api-lite/cfdis', param),
-			Create: (data) => postSyncWithData('api-lite/2/cfdis', data),
-			Create3: (data) => postSyncWithData('api-lite/3/cfdis', data),
+			Create: (data) => postSyncWithData('api-lite/3/cfdis', data),
 			Send: (param) => postSyncWithParam('cfdi', param),
 			Cancel: (params) => deleteSyncWithParam('api-lite/cfdis', params),
 			Download: (format, type, id) => retrieve('cfdi/' + format + '/' + type, id),
