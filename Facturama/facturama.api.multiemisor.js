@@ -57,6 +57,7 @@ const facturama = () => {
 	const facturamaObject = {
 		Cfdi: {
 			Get: (id) => retrieve('api-lite/cfdis', id),
+			GetPdf: (id) => retrieve('cfdi/pdf/issuedLite', id),
 			List: (param) => listWithParam('api-lite/cfdis', param),
 			Create: (data) => postSyncWithData('api-lite/3/cfdis', data),
 			Send: (param) => postSyncWithParam('cfdi', param),
