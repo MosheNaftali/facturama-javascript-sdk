@@ -74,7 +74,7 @@ const facturama = () => {
 			Remove: (params) => deleteSyncWithParam('api-lite/csds', params)
 		},
 		Catalogs: {
-			States: (country) => list('catalogs/municipalities?countryCode=' + country),
+			States: () => list('catalogs/States?countryCode=MEX'),
 			Municipalities: (state) => list('catalogs/municipalities?stateCode=' + state),
 			Localities: (state) => list('catalogs/localities?stateCode=' + state),
 			Neighborhoods: (postalCode) => list('catalogs/neighborhoods?postalCode=' + postalCode),
