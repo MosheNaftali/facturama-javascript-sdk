@@ -39,7 +39,12 @@ const facturama = () => {
 			headers: {
 				'Content-Type': 'application/json',
 			}
-		}).then(response => response.data);
+		}).then(response => response.data).catch(e => {
+			console.log("ERROR FACTURAMA LIB:", e.response.data);
+			throw e.response.data;
+
+		})
+			;
 	};
 
 	const putSyncWithData = (path, data) => {
