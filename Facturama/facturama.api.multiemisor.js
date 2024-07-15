@@ -7,8 +7,8 @@ Soporte API Facturama
 
 
 const valuesFacturama = {
-	token: "TW9zaGVOYWZ0YWxpOlhaYW9EeFM3cjImV295", // usuario: pruebas, Contraseña: pruebas2011
-	url: "https://apisandbox.facturama.mx/"
+	token: process.env.FACTURAMA_TOKEN,
+	url: process.env.NODE_ENV === "production" ? "https://api.facturama.mx/" : "https://apisandbox.facturama.mx/"
 };
 const instance = axios.create({
 	baseURL: valuesFacturama.url,

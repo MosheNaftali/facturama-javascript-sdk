@@ -4,8 +4,8 @@ Soporte API Facturama
 */
 
 var valuesFacturama = {
-    token: "cHJ1ZWJhczpwcnVlYmFzMjAxMQ==", // usuario: pruebas, Contraseña: pruebas2011    
-    url: "https://apisandbox.facturama.mx/"
+    token: process.env.FACTURAMA_TOKEN,
+    url: process.env.NODE_ENV === "production" ? "https://api.facturama.mx/" : "https://apisandbox.facturama.mx/"
 };
 
 $.ajaxSetup({
