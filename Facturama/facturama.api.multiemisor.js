@@ -59,6 +59,28 @@ const facturama = () => {
 		return instance.delete(path + '/' + param).then(response => response.data);
 	};
 
+	const GetInformationCerFile = (base64CerFile) => {
+		const crypto = require("crypto")
+
+		const cerFile = Buffer.from(base64CerFile, 'base64');
+		const cerAttributes = new crypto.X509Certificate(cerFile)
+
+		const subjectComponents = cerAttributes.subject.split('\n').map(component => component.trim());
+		const issuerComponents = cerAttributes.issuer.split('\n').map(component => component.trim());
+		const subjectObject = {};
+		subjectComponents.forEach(component => {
+			const [key, value] = component.split('=').map(part => part.trim());
+			subjectObject[key] = value;
+		});
+		const issuerObject = {};
+		issuerComponents.forEach(component => {
+			const [key, value] = component.split('=').map(part => part.trim());
+			issuerObject[key] = value;
+		});
+
+		return { subjectObject, issuerObject, expiration: new Date(cerAttributes.validTo) };
+	};
+
 	const facturamaObject = {
 		Cfdi: {
 			Get: (id) => retrieve('api-lite/cfdis', id),
@@ -73,6 +95,7 @@ const facturama = () => {
 		},
 		Certificates: {
 			Get: (param) => listWithParam('api-lite/csds/', param),
+			GetInformationCerFile: (base64CerFile) => GetInformationCerFile(base64CerFile),
 			List: () => list('api-lite/csds'),
 			Create: (data) => postSyncWithData('api-lite/csds', data),
 			Update: (param, data) => putSyncWithData('api-lite/csds/' + param, data),
