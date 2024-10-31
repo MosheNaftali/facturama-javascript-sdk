@@ -31,7 +31,20 @@ const facturama = () => {
 	};
 
 	const postSyncWithParam = (path, param) => {
-		return instance.post(path + param).then(response => response.data);
+		return instance.post(path + param).then(response => response.data).catch(e => {
+			const error = e.response.data;
+			console.log("ERROR FACTURAMA postSyncWithParam:", error);
+			let errorMessage = ""
+			if (error.Message) errorMessage += `${error.Message} `;
+			if (error.ModelState) {
+				Object.values(error.ModelState).forEach((value) => {
+					if (value.length > 0) {
+						errorMessage += `${value.join(', ')}.\n`;
+					}
+				})
+			}
+			throw errorMessage;
+		});
 	};
 
 	const postSyncWithData = (path, data) => {
@@ -40,9 +53,18 @@ const facturama = () => {
 				'Content-Type': 'application/json',
 			}
 		}).then(response => response.data).catch(e => {
-			console.log("ERROR FACTURAMA LIB:", e.response.data);
-			throw e.response.data;
-
+			const error = e.response.data;
+			console.log("ERROR FACTURAMA LIB:", error);
+			let errorMessage = ""
+			if (error.Message) errorMessage += `${error.Message} `;
+			if (error.ModelState) {
+				Object.values(error.ModelState).forEach((value) => {
+					if (value.length > 0) {
+						errorMessage += `${value.join(', ')}.\n`;
+					}
+				})
+			}
+			throw errorMessage;
 		})
 			;
 	};
@@ -56,7 +78,21 @@ const facturama = () => {
 	};
 
 	const deleteSyncWithParam = (path, param) => {
-		return instance.delete(path + '/' + param).then(response => response.data);
+		console.log({ path, param })
+		return instance.delete(path + '/' + param).then(response => response.data).catch(e => {
+			const error = e.response.data;
+			console.log("ERROR FACTURAMA deleteSyncWithParam:", error);
+			let errorMessage = ""
+			if (error.Message) errorMessage += `${error.Message} `;
+			if (error.ModelState) {
+				Object.values(error.ModelState).forEach((value) => {
+					if (value.length > 0) {
+						errorMessage += `${value.join(', ')}.\n`;
+					}
+				})
+			}
+			throw errorMessage;
+		});;
 	};
 
 	const GetInformationCerFile = (base64CerFile) => {
