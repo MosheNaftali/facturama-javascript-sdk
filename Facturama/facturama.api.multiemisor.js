@@ -101,16 +101,16 @@ const facturama = () => {
 		const cerFile = Buffer.from(base64CerFile, 'base64');
 		const cerAttributes = new crypto.X509Certificate(cerFile)
 
-		const subjectComponents = cerAttributes.subject.split('\n').map(component => component.trim());
-		const issuerComponents = cerAttributes.issuer.split('\n').map(component => component.trim());
+		const subjectComponents = cerAttributes.subject.split('\n');
+		const issuerComponents = cerAttributes.issuer.split('\n');
 		const subjectObject = {};
 		subjectComponents.forEach(component => {
-			const [key, value] = component.split('=').map(part => part.trim());
+			const [key, value] = component.split('=');
 			subjectObject[key] = value;
 		});
 		const issuerObject = {};
 		issuerComponents.forEach(component => {
-			const [key, value] = component.split('=').map(part => part.trim());
+			const [key, value] = component.split('=');
 			issuerObject[key] = value;
 		});
 
