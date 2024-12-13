@@ -1,3 +1,4 @@
+const {errorHandler} = require("../misc/errorHandler.json")
 const axios = require('axios').default;
 /*
 Soporte API Facturama
@@ -15,6 +16,23 @@ const instance = axios.create({
 });
 
 instance.defaults.headers.common["Authorization"] = "Basic " + valuesFacturama.token;
+
+function formatError(error){
+	let errorMessage = ""
+	if (error.Message){
+		if(errorHandler.response.hasOwnProperty(error.Message)) errorMessage += errorHandler.response[error.Message]
+		else errorMessage += `${error.Message} `;
+	}
+	if (error.ModelState) {
+		Object.entries(error.ModelState).forEach(([key, value]) => {
+			if (value.length > 0) {
+				if(errorHandler.response.hasOwnProperty(key)) errorMessage += errorHandler.response[key]
+				else errorMessage += `${value.join(', ')}.\n`;
+			}
+		})
+	}
+	return errorMessage;
+}
 
 const facturama = () => {
 
@@ -34,15 +52,7 @@ const facturama = () => {
 		return instance.post(path + param).then(response => response.data).catch(e => {
 			const error = e.response.data;
 			console.log("ERROR FACTURAMA postSyncWithParam:", error);
-			let errorMessage = ""
-			if (error.Message) errorMessage += `${error.Message} `;
-			if (error.ModelState) {
-				Object.values(error.ModelState).forEach((value) => {
-					if (value.length > 0) {
-						errorMessage += `${value.join(', ')}.\n`;
-					}
-				})
-			}
+			const errorMessage = formatError(error)
 			throw errorMessage;
 		});
 	};
@@ -54,16 +64,8 @@ const facturama = () => {
 			}
 		}).then(response => response.data).catch(e => {
 			const error = e.response.data;
-			console.log("ERROR FACTURAMA LIB:", error);
-			let errorMessage = ""
-			if (error.Message) errorMessage += `${error.Message} `;
-			if (error.ModelState) {
-				Object.values(error.ModelState).forEach((value) => {
-					if (value.length > 0) {
-						errorMessage += `${value.join(', ')}.\n`;
-					}
-				})
-			}
+			console.log("ERROR FACTURAMA postSyncWithData:", error);
+			const errorMessage = formatError(error)
 			throw errorMessage;
 		})
 			;
@@ -82,15 +84,7 @@ const facturama = () => {
 		return instance.delete(path + '/' + param).then(response => response.data).catch(e => {
 			const error = e.response.data;
 			console.log("ERROR FACTURAMA deleteSyncWithParam:", error);
-			let errorMessage = ""
-			if (error.Message) errorMessage += `${error.Message} `;
-			if (error.ModelState) {
-				Object.values(error.ModelState).forEach((value) => {
-					if (value.length > 0) {
-						errorMessage += `${value.join(', ')}.\n`;
-					}
-				})
-			}
+			const errorMessage = formatError(error)
 			throw errorMessage;
 		});;
 	};
