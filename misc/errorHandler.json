@@ -7,7 +7,8 @@
       "El campo DomicilioFiscalReceptor del receptor, debe encontrarse en la lista de RFC inscritos no cancelados en el SAT.": "El código postal no pertenece al RFC al que se está tratando de facturar",
       "El campo DomicilioFiscalReceptor, no es igual al valor del campo LugarExpedicion.": "Al ser una factura a 'PÚBLICO EN GENERAL', el código postal debe de ser igual al código postal del vendedor.",
       "El campo Nombre del receptor, debe pertenecer al nombre asociado al RFC registrado en el campo Rfc del Receptor.": "El nombre o razón social no pertenece al RFC al que se está tratando de facturar",
-      "Este RFC del receptor no existe en la lista de RFC inscritos no cancelados del SAT.": "El RFC del receptor, no pertenece a un RFC inscrito en el SAT, por favor verifique que el RFC sea correcto"
+      "Este RFC del receptor no existe en la lista de RFC inscritos no cancelados del SAT.": "El RFC del receptor, no pertenece a un RFC inscrito en el SAT, por favor verifique que el RFC sea correcto",
+      "Ups! Ocurrió un problema al cancelar tu comprobante.: El equipo de Facturama ya se encuentra informado de este error, favor de intentar de nuevo mas tarde": "Error interno al cancelar el CFDI, porfavor comunicate con nosotros"
     }
   }
 }
