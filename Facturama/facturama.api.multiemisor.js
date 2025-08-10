@@ -1,4 +1,4 @@
-const {errorHandler} = require("../misc/errorHandler.json")
+const { errorHandler } = require("../misc/errorHandler.json")
 const axios = require('axios').default;
 /*
 Soporte API Facturama
@@ -17,16 +17,16 @@ const instance = axios.create({
 
 instance.defaults.headers.common["Authorization"] = "Basic " + valuesFacturama.token;
 
-function formatError(error){
+function formatError(error) {
 	let errorMessage = ""
-	if (error.Message){
-		if(errorHandler.response.hasOwnProperty(error.Message)) errorMessage += errorHandler.response[error.Message]
+	if (error.Message) {
+		if (errorHandler.response.hasOwnProperty(error.Message)) errorMessage += errorHandler.response[error.Message]
 		else errorMessage += `${error.Message} `;
 	}
 	if (error.ModelState) {
 		Object.entries(error.ModelState).forEach(([key, value]) => {
 			if (value.length > 0) {
-				if(errorHandler.response.hasOwnProperty(key)) errorMessage += errorHandler.response[key]
+				if (errorHandler.response.hasOwnProperty(key)) errorMessage += errorHandler.response[key]
 				else errorMessage += `${value.join(', ')}.\n`;
 			}
 		})
