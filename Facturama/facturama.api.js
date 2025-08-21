@@ -3,9 +3,11 @@ Soporte API Facturama
     soporte-api@facturama.mx
 */
 
+const { FACTURAMA_TOKEN, NODE_ENV } = require("../../../constants/environments");
+
 var valuesFacturama = {
-    token: process.env.FACTURAMA_TOKEN,
-    url: process.env.NODE_ENV === "production" ? "https://api.facturama.mx/" : "https://apisandbox.facturama.mx/"
+    token: FACTURAMA_TOKEN,
+    url: NODE_ENV === "production" ? "https://api.facturama.mx/" : "https://apisandbox.facturama.mx/"
 };
 
 $.ajaxSetup({
@@ -161,10 +163,10 @@ $.ajaxSetup({
                     return listWithParam('cfdi', param, callback);
                 },
                 Create: function (data, callback, callbackError) {
-                    postSyncWithData('2/cfdis', data, callback, callbackError);  
+                    postSyncWithData('2/cfdis', data, callback, callbackError);
                 },
                 Create3: function (data, callback, callbackError) {
-                    postSyncWithData('3/cfdis', data, callback, callbackError);   
+                    postSyncWithData('3/cfdis', data, callback, callbackError);
                 },
                 Send: function (param, callback) {
                     postSyncWithParam('cfdi', param, callback);
@@ -178,9 +180,8 @@ $.ajaxSetup({
                 Acuse: function (format, type, id, callback) {
                     retrieve('acuse/' + format + '/' + type, id, callback);
                 },
-                Status: function(params,callback)
-                {
-                    return retrieveStatus('cfdi/status' , params , callback);
+                Status: function (params, callback) {
+                    return retrieveStatus('cfdi/status', params, callback);
                 }
             },
             TaxEntity: {

@@ -1,3 +1,4 @@
+const { FACTURAMA_TOKEN, NODE_ENV } = require("../../../constants/environments");
 const { errorHandler } = require("../misc/errorHandler.json")
 const axios = require('axios').default;
 /*
@@ -8,8 +9,8 @@ Soporte API Facturama
 
 
 const valuesFacturama = {
-	token: process.env.FACTURAMA_TOKEN,
-	url: process.env.NODE_ENV === "production" ? "https://api.facturama.mx/" : "https://apisandbox.facturama.mx/"
+	token: FACTURAMA_TOKEN,
+	url: NODE_ENV === "production" ? "https://api.facturama.mx/" : "https://apisandbox.facturama.mx/"
 };
 const instance = axios.create({
 	baseURL: valuesFacturama.url,
@@ -76,7 +77,12 @@ const facturama = () => {
 			headers: {
 				'Content-Type': 'application/json',
 			}
-		}).then(response => response.data);
+		}).then(response => response.data).catch(e => {
+			const error = e.response.data;
+			console.log("ERROR FACTURAMA putSyncWithData:", error);
+			const errorMessage = formatError(error)
+			throw errorMessage;
+		});
 	};
 
 	const deleteSyncWithParam = (path, param) => {
@@ -150,4 +156,4 @@ const facturama = () => {
 	return facturamaObject;
 };
 
-module.exports = facturama;
+module.exports = facturama();
