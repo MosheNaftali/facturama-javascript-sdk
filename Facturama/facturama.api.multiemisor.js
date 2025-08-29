@@ -86,13 +86,14 @@ const facturama = () => {
 	};
 
 	const deleteSyncWithParam = (path, param) => {
-		console.log({ path, param })
-		return instance.delete(path + '/' + param).then(response => response.data).catch(e => {
-			const error = e.response.data;
-			console.log("ERROR FACTURAMA deleteSyncWithParam:", error);
-			const errorMessage = formatError(error)
-			throw errorMessage;
-		});;
+		return instance.delete(path + '/' + param)
+			.then(response => response.data)
+			.catch(e => {
+				const error = e.response.data;
+				console.log("ERROR FACTURAMA deleteSyncWithParam:", e.response);
+				const errorMessage = formatError(error)
+				throw errorMessage;
+			});;
 	};
 
 	const GetInformationCerFile = (base64CerFile) => {
