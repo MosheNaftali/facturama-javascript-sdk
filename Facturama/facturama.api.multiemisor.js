@@ -52,7 +52,7 @@ const facturama = () => {
 	const postSyncWithParam = (path, param) => {
 		return instance.post(path + param).then(response => response.data).catch(e => {
 			const error = e.response.data;
-			console.log("ERROR FACTURAMA postSyncWithParam:", error);
+			console.warn("ERROR FACTURAMA postSyncWithParam:", error);
 			const errorMessage = formatError(error)
 			throw errorMessage;
 		});
@@ -65,7 +65,7 @@ const facturama = () => {
 			}
 		}).then(response => response.data).catch(e => {
 			const error = e.response.data;
-			console.log("ERROR FACTURAMA postSyncWithData:", error);
+			console.warn("ERROR FACTURAMA postSyncWithData:", error);
 			const errorMessage = formatError(error)
 			throw errorMessage;
 		})
@@ -79,7 +79,7 @@ const facturama = () => {
 			}
 		}).then(response => response.data).catch(e => {
 			const error = e.response.data;
-			console.log("ERROR FACTURAMA putSyncWithData:", error);
+			console.warn("ERROR FACTURAMA putSyncWithData:", error);
 			const errorMessage = formatError(error)
 			throw errorMessage;
 		});
@@ -90,7 +90,7 @@ const facturama = () => {
 			.then(response => response.data)
 			.catch(e => {
 				const error = e.response.data;
-				console.log("ERROR FACTURAMA deleteSyncWithParam:", e.response);
+				console.warn("ERROR FACTURAMA deleteSyncWithParam:", e.response);
 				const errorMessage = formatError(error)
 				throw errorMessage;
 			});;
