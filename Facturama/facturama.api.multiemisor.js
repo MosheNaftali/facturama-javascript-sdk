@@ -38,31 +38,19 @@ function formatError(error) {
 const facturama = () => {
 
 	const retrieve = (path, id) => {
-		return instance.get(path + '/' + id).then(response => {
-			console.warn({ response })
-			return response.data
-		});
+		return instance.get(path + '/' + id).then(response => response.data);
 	};
 
 	const list = (path) => {
-		return instance.get(path).then(response => {
-			console.warn({ response })
-			return response.data
-		});
+		return instance.get(path).then(response => response.data);
 	};
 
 	const listWithParam = (path, param) => {
-		return instance.get(path + param).then(response => {
-			console.warn({ response })
-			return response.data
-		});
+		return instance.get(path + param).then(response => response.data);
 	};
 
 	const postSyncWithParam = (path, param) => {
-		return instance.post(path + param).then(response => {
-			console.warn({ response })
-			return response.data
-		}).catch(e => {
+		return instance.post(path + param).then(response => response.data).catch(e => {
 			const error = e.response.data;
 			console.warn("ERROR FACTURAMA postSyncWithParam:", error);
 			const errorMessage = formatError(error)
@@ -71,17 +59,13 @@ const facturama = () => {
 	};
 
 	const postSyncWithData = (path, data) => {
-		console.warn(`DATA FACTURAMA postSyncWithData:${JSON.stringify({ path, data })}`);
 		return instance.post(path, data, {
 			headers: {
 				'Content-Type': 'application/json',
 			}
-		}).then(response => {
-			console.warn({ response })
-			return response.data
-		}).catch(e => {
-			console.warn("ERROR FACTURAMA postSyncWithData:", e);
+		}).then(response => response.data).catch(e => {
 			const error = e.response.data;
+			console.warn("ERROR FACTURAMA postSyncWithData:", error);
 			const errorMessage = formatError(error)
 			throw errorMessage;
 		})
@@ -93,10 +77,7 @@ const facturama = () => {
 			headers: {
 				'Content-Type': 'application/json',
 			}
-		}).then(response => {
-			console.warn({ response })
-			return response.data
-		}).catch(e => {
+		}).then(response => response.data).catch(e => {
 			const error = e.response.data;
 			console.warn("ERROR FACTURAMA putSyncWithData:", error);
 			const errorMessage = formatError(error)
@@ -106,10 +87,7 @@ const facturama = () => {
 
 	const deleteSyncWithParam = (path, param) => {
 		return instance.delete(path + '/' + param)
-			.then(response => {
-				console.warn({ response })
-				return response.data
-			})
+			.then(response => response.data)
 			.catch(e => {
 				const error = e.response.data;
 				console.warn("ERROR FACTURAMA deleteSyncWithParam:", e.response);
