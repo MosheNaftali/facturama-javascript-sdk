@@ -80,8 +80,8 @@ const facturama = () => {
 			console.warn({ response })
 			return response.data
 		}).catch(e => {
+			console.warn("ERROR FACTURAMA postSyncWithData:", e);
 			const error = e.response.data;
-			console.warn("ERROR FACTURAMA postSyncWithData:", error);
 			const errorMessage = formatError(error)
 			throw errorMessage;
 		})
