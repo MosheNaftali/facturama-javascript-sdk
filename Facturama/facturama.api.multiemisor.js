@@ -71,6 +71,7 @@ const facturama = () => {
 	};
 
 	const postSyncWithData = (path, data) => {
+		console.warn(`DATA FACTURAMA postSyncWithData:${JSON.stringify({ path, data })}`);
 		return instance.post(path, data, {
 			headers: {
 				'Content-Type': 'application/json',
