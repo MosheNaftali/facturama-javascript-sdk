@@ -19,6 +19,7 @@ const instance = axios.create({
 instance.defaults.headers.common["Authorization"] = "Basic " + valuesFacturama.token;
 
 function formatError(error) {
+	console.warn("formatError facturama", error)
 	let errorMessage = ""
 	if (error.Message) {
 		if (errorHandler.response.hasOwnProperty(error.Message)) errorMessage += errorHandler.response[error.Message]
@@ -26,9 +27,18 @@ function formatError(error) {
 	}
 	if (error.ModelState) {
 		Object.entries(error.ModelState).forEach(([key, value]) => {
-			if (value.length > 0) {
-				if (errorHandler.response.hasOwnProperty(key)) errorMessage += errorHandler.response[key]
-				else errorMessage += `${value.join(', ')}.\n`;
+			if (Array.isArray(value) && value.length > 0) {
+				if (errorHandler.response.hasOwnProperty(key)) {
+					errorMessage += errorHandler.response[key] + ".\n";
+				} else if (value.length) {
+					value.forEach(v => {
+						if (errorHandler.response.hasOwnProperty(v)) {
+							errorMessage += errorHandler.response[v] + ".\n";
+						} else {
+							errorMessage += `${v}.\n`;
+						}
+					});
+				}
 			}
 		})
 	}
